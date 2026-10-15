@@ -1,0 +1,209 @@
+<div class="contact-page">
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="badge badge-angular">Admissions &amp; Consultation</span>
+      <h1 class="page-title">Connect with Our <span class="gradient-text">Counselors &amp; Mentors</span></h1>
+      <p class="page-subtitle">
+        Have questions about the curriculum, fee structures, or batch timings? Book a free 1-on-1 career consultation or attend an upcoming live demo session.
+      </p>
+    </div>
+  </section>
+
+  <!-- Contact Form & Info Grid -->
+  <section class="contact-content-section">
+    <div class="container">
+      <div class="contact-grid">
+        <!-- Left: Form -->
+        <div class="form-wrapper glass-card">
+          <div *ngIf="!isSubmitted">
+            <div class="form-header">
+              <h2 class="form-title">Request Course Syllabus &amp; Demo</h2>
+              <p class="form-subtitle">Fill out the form below and an academic counselor will connect within 2 hours.</p>
+            </div>
+
+            <form (ngSubmit)="onSubmit()" class="inquiry-form">
+              <div class="form-group">
+                <label for="fullName">Your Full Name *</label>
+                <div class="input-with-icon">
+                  <i class="fa-regular fa-user"></i>
+                  <input 
+                    type="text" 
+                    id="fullName" 
+                    [(ngModel)]="formData.fullName" 
+                    name="fullName" 
+                    placeholder="e.g. Ramesh Reddy" 
+                    required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Work / Personal Email *</label>
+                  <div class="input-with-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      [(ngModel)]="formData.email" 
+                      name="email" 
+                      placeholder="name@example.com" 
+                      required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone / WhatsApp Number *</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-phone"></i>
+                    <input 
+                      type="tel" 
+                      id="phone" 
+                      [(ngModel)]="formData.phone" 
+                      name="phone" 
+                      placeholder="+91 98765 43210" 
+                      required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="program">Select Program *</label>
+                  <select id="program" [(ngModel)]="formData.program" name="program">
+                    <option value="ang-19-mastery">Angular 19 Complete Mastery (8 Weeks)</option>
+                    <option value="ngrx-architect">Enterprise NgRx &amp; Architecture (6 Weeks)</option>
+                    <option value="fullstack-ang-nest">Full Stack Angular 19 &amp; NestJS (10 Weeks)</option>
+                    <option value="testing-qa-mastery">Angular Testing &amp; QA Bootcamp (4 Weeks)</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="batchType">Preferred Batch Slot *</label>
+                  <select id="batchType" [(ngModel)]="formData.batchType" name="batchType">
+                    <option value="weekday-morning">Weekday Morning (7:30 AM - 9:00 AM IST)</option>
+                    <option value="weekday-evening">Weekday Evening (8:00 PM - 9:30 PM IST)</option>
+                    <option value="weekend">Weekend Track (Sat &amp; Sun)</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label for="experience">Current Experience Level</label>
+                <select id="experience" [(ngModel)]="formData.experience" name="experience">
+                  <option value="fresher">Fresher / College Graduate</option>
+                  <option value="1-3-years">1 to 3 Years (Junior / Mid Developer)</option>
+                  <option value="4-plus-years">4+ Years (Senior Engineer / Tech Lead)</option>
+                  <option value="transition">Switching Tech Stack from React / Java / QA</option>
+                </select>
+              </div>
+
+              <div class="form-group">
+                <label for="message">Your Career Goals or Questions (Optional)</label>
+                <textarea 
+                  id="message" 
+                  rows="3" 
+                  [(ngModel)]="formData.message" 
+                  name="message" 
+                  placeholder="Tell us what you want to achieve or any specific topics you want to clarify...">
+                </textarea>
+              </div>
+
+              <button type="submit" class="btn btn-primary submit-btn" [disabled]="isSubmitting">
+                <span *ngIf="!isSubmitting">Submit Inquiry &amp; Get Free Demo</span>
+                <span *ngIf="isSubmitting"><i class="fa-solid fa-spinner fa-spin"></i> Processing...</span>
+                <i class="fa-solid fa-arrow-right" *ngIf="!isSubmitting"></i>
+              </button>
+            </form>
+          </div>
+
+          <!-- Success Screen -->
+          <div class="success-screen" *ngIf="isSubmitted">
+            <div class="success-icon">
+              <i class="fa-solid fa-circle-check"></i>
+            </div>
+            <h3>Thank You, {{ formData.fullName }}!</h3>
+            <p>
+              Your inquiry has been successfully registered. Our Senior Admission Counselor will reach out to you via WhatsApp / Call at <strong>{{ formData.phone }}</strong> with the detailed syllabus PDF and live demo joining credentials.
+            </p>
+            <button class="btn btn-secondary" (click)="resetForm()">
+              <i class="fa-solid fa-rotate-left"></i> Submit Another Inquiry
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Campus Contact Details -->
+        <div class="info-side">
+          <!-- Hub Card -->
+          <div class="hub-card glass-card">
+            <h3 class="hub-title"><i class="fa-solid fa-building-columns"></i> GoMinds Hyderabad Hub</h3>
+            <p class="hub-address">
+              Plot 42, 3rd Floor, Silicon Towers, Opposite Cyber Towers, Hitech City, Madhapur, Hyderabad, Telangana 500081
+            </p>
+
+            <div class="hub-links">
+              <a href="tel:+919876543210" class="hub-link-item">
+                <div class="link-icon"><i class="fa-solid fa-phone"></i></div>
+                <div>
+                  <span class="link-label">Admissions Helpline</span>
+                  <span class="link-val">+91 98765 43210 / +91 (040) 8899-2345</span>
+                </div>
+              </a>
+
+              <a href="mailto:admissions@gomindsacademy.com" class="hub-link-item">
+                <div class="link-icon"><i class="fa-regular fa-envelope"></i></div>
+                <div>
+                  <span class="link-label">Admissions Email</span>
+                  <span class="link-val">admissions&#64;gomindsacademy.com</span>
+                </div>
+              </a>
+
+              <a href="https://wa.me/919876543210" target="_blank" rel="noopener" class="hub-link-item">
+                <div class="link-icon whatsapp"><i class="fa-brands fa-whatsapp"></i></div>
+                <div>
+                  <span class="link-label">Instant WhatsApp Chat</span>
+                  <span class="link-val">Chat with Senior Counselor</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="hours-block">
+              <span class="hours-label"><i class="fa-regular fa-clock"></i> Campus Working Hours</span>
+              <p>Monday - Saturday: 8:00 AM - 9:00 PM IST<br>Sunday: 9:00 AM - 6:00 PM IST</p>
+            </div>
+          </div>
+
+          <!-- Placement Guarantee Card -->
+          <div class="placement-card glass-card">
+            <div class="badge badge-green"><i class="fa-solid fa-shield-halved"></i> 100% Placement Assurance</div>
+            <h4>Direct Referrals to 140+ Partner Companies</h4>
+            <p>Our dedicated corporate placement cell arranges interview opportunities with top product startups, unicorns, and Tier-1 IT enterprises until you receive an offer letter.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQs Section -->
+  <section class="faqs-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="subtitle">Got Questions?</span>
+        <h2>Frequently Asked Questions</h2>
+        <p>Everything you need to know about our batches, payments, and placement support.</p>
+      </div>
+
+      <div class="faqs-accordion">
+        <div class="faq-item glass-card" *ngFor="let faq of faqs" [class.open]="faq.isOpen">
+          <button class="faq-question-btn" (click)="toggleFaq(faq)">
+            <span>{{ faq.question }}</span>
+            <i class="fa-solid" [class.fa-plus]="!faq.isOpen" [class.fa-minus]="faq.isOpen"></i>
+          </button>
+          <div class="faq-answer" *ngIf="faq.isOpen">
+            <p>{{ faq.answer }}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

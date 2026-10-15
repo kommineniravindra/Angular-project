@@ -1,0 +1,129 @@
+<div class="timetable-page">
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="badge badge-angular">Batch Schedule &amp; Timetable</span>
+      <h1 class="page-title">Live Interactive <span class="gradient-text">Batch Timetable</span></h1>
+      <p class="page-subtitle">
+        Flexible morning, evening, and weekend cohorts. High-engagement live sessions with daily 1-on-1 doubt clearing and lifetime access to HD class recordings.
+      </p>
+
+      <!-- Filter Buttons -->
+      <div class="filter-tabs">
+        <button 
+          class="filter-tab" 
+          [class.active]="activeTab === 'all'" 
+          (click)="setTab('all')">
+          <i class="fa-solid fa-calendar"></i> All Upcoming Batches
+        </button>
+        <button 
+          class="filter-tab" 
+          [class.active]="activeTab === 'weekday'" 
+          (click)="setTab('weekday')">
+          <i class="fa-solid fa-briefcase"></i> Weekday Batches (Mon - Thu)
+        </button>
+        <button 
+          class="filter-tab" 
+          [class.active]="activeTab === 'weekend'" 
+          (click)="setTab('weekend')">
+          <i class="fa-solid fa-coffee"></i> Weekend Fast-Track (Sat - Sun)
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Batches Table / Cards Section -->
+  <section class="timetable-section">
+    <div class="container">
+      <div class="batches-grid">
+        <div class="batch-card glass-card" *ngFor="let b of filteredBatches()">
+          <div class="batch-top">
+            <div class="batch-type-pill" [class.weekend]="b.type === 'weekend'">
+              <i class="fa-solid" [class.fa-sun]="b.type === 'weekday'" [class.fa-mug-hot]="b.type === 'weekend'"></i>
+              <span>{{ b.type === 'weekday' ? 'Weekday Track' : 'Weekend Track' }}</span>
+            </div>
+            <div class="seat-status" [class.filling]="b.status === 'Filling Fast'" [class.critical]="b.status === 'Almost Full'">
+              <span class="status-dot"></span>
+              <span>{{ b.seatsLeft }} Seats Left ({{ b.status }})</span>
+            </div>
+          </div>
+
+          <h2 class="batch-title">{{ b.courseTitle }}</h2>
+
+          <div class="batch-info-grid">
+            <div class="info-cell">
+              <span class="cell-label"><i class="fa-regular fa-clock"></i> Timings</span>
+              <span class="cell-val highlight-val">{{ b.timeSlot }}</span>
+            </div>
+
+            <div class="info-cell">
+              <span class="cell-label"><i class="fa-regular fa-calendar-days"></i> Days</span>
+              <span class="cell-val">{{ b.days }}</span>
+            </div>
+
+            <div class="info-cell">
+              <span class="cell-label"><i class="fa-solid fa-rocket"></i> Start Date</span>
+              <span class="cell-val text-emerald">{{ b.startDate }}</span>
+            </div>
+
+            <div class="info-cell">
+              <span class="cell-label"><i class="fa-solid fa-hourglass-half"></i> Duration</span>
+              <span class="cell-val">{{ b.duration }}</span>
+            </div>
+          </div>
+
+          <!-- Mentor & Mode Row -->
+          <div class="mentor-row">
+            <div class="mentor-info">
+              <div class="mentor-icon">
+                <i class="fa-solid fa-user-tie"></i>
+              </div>
+              <div>
+                <span class="mentor-title">Lead Mentor</span>
+                <h4 class="mentor-name">{{ b.mentor }}</h4>
+                <span class="mentor-role">{{ b.mentorRole }}</span>
+              </div>
+            </div>
+            <div class="delivery-mode">
+              <i class="fa-solid fa-video"></i>
+              <span>{{ b.mode }}</span>
+            </div>
+          </div>
+
+          <!-- Batch Action -->
+          <div class="batch-action">
+            <a routerLink="/enroll" [queryParams]="{batch: b.id}" class="btn btn-primary" style="width: 100%;">
+              <span>Reserve Seat In This Batch</span>
+              <i class="fa-solid fa-arrow-right"></i>
+            </a>
+          </div>
+        </div>
+      </div>
+
+      <!-- Schedule Guarantees / Perks -->
+      <div class="schedule-perks glass-card">
+        <div class="perk-item">
+          <i class="fa-solid fa-video text-rose"></i>
+          <div>
+            <h4>100% Class Recordings</h4>
+            <p>Missed a live session? Access ultra-crisp 4K recordings within 2 hours of class completion.</p>
+          </div>
+        </div>
+        <div class="perk-item">
+          <i class="fa-solid fa-repeat text-indigo"></i>
+          <div>
+            <h4>Batch Switching Flexibility</h4>
+            <p>Work emergency? Seamlessly switch between morning, evening, or weekend batches anytime.</p>
+          </div>
+        </div>
+        <div class="perk-item">
+          <i class="fa-solid fa-comments text-cyan"></i>
+          <div>
+            <h4>Private Discord Helpdesk</h4>
+            <p>Get instant debugging help from dedicated Teaching Assistants from 8 AM to 11 PM every day.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

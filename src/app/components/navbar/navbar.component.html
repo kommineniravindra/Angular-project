@@ -1,0 +1,79 @@
+<header class="navbar-wrapper" [class.scrolled]="isScrolled">
+  <div class="container navbar-container">
+    <!-- Brand Logo -->
+    <a routerLink="/home" class="brand-logo" (click)="closeMobileMenu()">
+      <div class="logo-shield">
+        <i class="fa-brands fa-angular"></i>
+      </div>
+      <div class="brand-text">
+        <span class="brand-name">GoMinds</span>
+        <span class="brand-tag">Angular Academy</span>
+      </div>
+    </a>
+
+    <!-- Desktop Nav Links -->
+    <nav class="nav-menu">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" class="nav-link">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+      <a routerLink="/courses" routerLinkActive="active" class="nav-link">
+        <i class="fa-solid fa-graduation-cap"></i> Courses
+      </a>
+      <a routerLink="/timetable" routerLinkActive="active" class="nav-link">
+        <i class="fa-regular fa-calendar-days"></i> Timetable
+      </a>
+      <a routerLink="/about-us" routerLinkActive="active" class="nav-link">
+        <i class="fa-solid fa-users"></i> About Us
+      </a>
+      <a routerLink="/contact-us" routerLinkActive="active" class="nav-link">
+        <i class="fa-solid fa-paper-plane"></i> Contact Us
+      </a>
+    </nav>
+
+    <!-- Nav Actions -->
+    <div class="nav-actions">
+      <a routerLink="/enroll" class="btn btn-primary nav-cta">
+        <span>Enroll Now</span>
+        <i class="fa-solid fa-arrow-right"></i>
+      </a>
+
+      <!-- Mobile Menu Toggle Button -->
+      <button 
+        class="mobile-toggle" 
+        (click)="toggleMobileMenu()" 
+        aria-label="Toggle navigation menu"
+        [class.open]="isMobileMenuOpen">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+  </div>
+
+  <!-- Mobile Drawer Menu -->
+  <div class="mobile-drawer" [class.open]="isMobileMenuOpen">
+    <div class="mobile-drawer-content">
+      <a routerLink="/home" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" (click)="closeMobileMenu()" class="mobile-link">
+        <i class="fa-solid fa-house"></i> Home
+      </a>
+      <a routerLink="/courses" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-link">
+        <i class="fa-solid fa-graduation-cap"></i> Courses
+      </a>
+      <a routerLink="/timetable" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-link">
+        <i class="fa-regular fa-calendar-days"></i> Timetable
+      </a>
+      <a routerLink="/about-us" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-link">
+        <i class="fa-solid fa-users"></i> About Us
+      </a>
+      <a routerLink="/contact-us" routerLinkActive="active" (click)="closeMobileMenu()" class="mobile-link">
+        <i class="fa-solid fa-paper-plane"></i> Contact Us
+      </a>
+      <div class="mobile-cta-wrap">
+        <a routerLink="/enroll" (click)="closeMobileMenu()" class="btn btn-primary" style="width: 100%;">
+          <span>Enroll Today</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </div>
+</header>

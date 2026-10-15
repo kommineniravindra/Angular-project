@@ -1,0 +1,109 @@
+<div class="courses-page">
+  <!-- Header Banner -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="badge badge-angular">Curriculum &amp; Programs</span>
+      <h1 class="page-title">Industry-Recognized <span class="gradient-text">Angular Certifications</span></h1>
+      <p class="page-subtitle">
+        Curated by Lead Architects. From foundational TypeScript &amp; Signals to advanced state patterns, full-stack microservices, and enterprise production pipelines.
+      </p>
+
+      <!-- Course Filters -->
+      <div class="filter-tabs">
+        <button 
+          class="filter-tab" 
+          [class.active]="selectedFilter === 'all'" 
+          (click)="setFilter('all')">
+          <i class="fa-solid fa-layer-group"></i> All Programs ({{ courses.length }})
+        </button>
+        <button 
+          class="filter-tab" 
+          [class.active]="selectedFilter === 'popular'" 
+          (click)="setFilter('popular')">
+          <i class="fa-solid fa-fire"></i> Best Sellers
+        </button>
+        <button 
+          class="filter-tab" 
+          [class.active]="selectedFilter === 'advanced'" 
+          (click)="setFilter('advanced')">
+          <i class="fa-solid fa-network-wired"></i> Architecture &amp; Full-Stack
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <!-- Courses Grid -->
+  <section class="courses-list-section">
+    <div class="container">
+      <div class="courses-grid">
+        <div class="course-card glass-card" *ngFor="let course of filteredCourses()">
+          <div class="course-header">
+            <div class="header-badges">
+              <span class="level-badge"><i class="fa-solid fa-signal"></i> {{ course.level }}</span>
+              <span class="highlight-badge" *ngIf="course.badge">{{ course.badge }}</span>
+            </div>
+            <h2 class="course-title">{{ course.title }}</h2>
+            <p class="course-tagline">{{ course.tagline }}</p>
+          </div>
+
+          <div class="course-meta">
+            <div class="meta-item">
+              <i class="fa-regular fa-clock"></i>
+              <span>{{ course.duration }} ({{ course.hours }})</span>
+            </div>
+            <div class="meta-item">
+              <i class="fa-solid fa-laptop-code"></i>
+              <span>{{ course.mode }}</span>
+            </div>
+          </div>
+
+          <!-- Tags -->
+          <div class="tags-container">
+            <span class="tech-tag" *ngFor="let tag of course.tags">{{ tag }}</span>
+          </div>
+
+          <!-- Syllabus Accordion -->
+          <div class="syllabus-drawer">
+            <button class="syllabus-toggle-btn" (click)="toggleModule(course)">
+              <span>
+                <i class="fa-solid fa-list-check"></i>
+                Detailed Weekly Curriculum
+              </span>
+              <i class="fa-solid" [class.fa-chevron-down]="!course.expanded" [class.fa-chevron-up]="course.expanded"></i>
+            </button>
+
+            <div class="modules-accordion" *ngIf="course.expanded">
+              <div class="module-item" *ngFor="let m of course.modules">
+                <div class="module-title-bar">
+                  <span class="week-pill">{{ m.week }}</span>
+                  <span class="topic-name">{{ m.topic }}</span>
+                </div>
+                <ul class="module-bullets">
+                  <li *ngFor="let d of m.details">
+                    <i class="fa-regular fa-circle-check"></i>
+                    <span>{{ d }}</span>
+                  </li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <!-- Pricing & Enrollment Action -->
+          <div class="course-footer">
+            <div class="pricing-box">
+              <span class="current-price">{{ course.price }}</span>
+              <span class="original-price">{{ course.originalPrice }}</span>
+              <span class="discount-pill">Limited Offer</span>
+            </div>
+            <div class="action-box">
+              <a routerLink="/enroll" [queryParams]="{course: course.id}" class="btn btn-primary">
+                <span>Enroll in Batch</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

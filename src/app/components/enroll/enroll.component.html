@@ -1,0 +1,455 @@
+<div class="enroll-page">
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="badge badge-angular">Secure Enrollment</span>
+      <h1 class="page-title">Join The <span class="gradient-text">Angular 19 Cohort</span></h1>
+      <p class="page-subtitle">
+        Reserve your seat in our high-intensity, project-driven bootcamps. Small batch sizes (max 15 devs) ensure personalized mentorship and daily code reviews.
+      </p>
+
+      <!-- Step Indicator Bar -->
+      <div class="steps-progress" *ngIf="!isCompleted">
+        <div class="step-indicator" [class.active]="currentStep === 1" [class.done]="currentStep > 1" (click)="goToStep(1)">
+          <div class="step-num"><i class="fa-solid fa-check" *ngIf="currentStep > 1"></i><span *ngIf="currentStep <= 1">1</span></div>
+          <span class="step-title">Course &amp; Batch</span>
+        </div>
+        <div class="step-line" [class.done]="currentStep > 1"></div>
+        <div class="step-indicator" [class.active]="currentStep === 2" [class.done]="currentStep > 2" (click)="goToStep(2)">
+          <div class="step-num"><i class="fa-solid fa-check" *ngIf="currentStep > 2"></i><span *ngIf="currentStep <= 2">2</span></div>
+          <span class="step-title">Student Details</span>
+        </div>
+        <div class="step-line" [class.done]="currentStep > 2"></div>
+        <div class="step-indicator" [class.active]="currentStep === 3" [class.done]="isCompleted" (click)="goToStep(3)">
+          <div class="step-num">3</div>
+          <span class="step-title">Review &amp; Pay</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Main Enrollment Form Area -->
+  <section class="enroll-section" *ngIf="!isCompleted">
+    <div class="container">
+      <div class="enroll-grid">
+        <!-- Form Left Column -->
+        <div class="enroll-main-col">
+          <!-- STEP 1: Course & Batch Selection -->
+          <div class="step-panel glass-card" *ngIf="currentStep === 1">
+            <div class="panel-header">
+              <h2><i class="fa-solid fa-graduation-cap text-rose"></i> Step 1: Select Your Specialization</h2>
+              <p>Choose the track that fits your career aspirations and learning pace.</p>
+            </div>
+
+            <!-- Course Selection Grid -->
+            <div class="options-grid">
+              <label 
+                class="option-card" 
+                *ngFor="let course of courses" 
+                [class.selected]="selectedCourseId === course.id">
+                <input 
+                  type="radio" 
+                  name="selectedCourse" 
+                  [value]="course.id" 
+                  [(ngModel)]="selectedCourseId" />
+                <div class="option-header">
+                  <span class="option-badge">{{ course.badge }}</span>
+                  <span class="option-price">₹{{ course.discountedPrice | number }}</span>
+                </div>
+                <h3 class="option-title">{{ course.name }}</h3>
+                <span class="option-meta"><i class="fa-regular fa-clock"></i> {{ course.duration }}</span>
+              </label>
+            </div>
+
+            <!-- Batch Slot Selection -->
+            <div class="section-divider">
+              <h3><i class="fa-regular fa-calendar-check text-rose"></i> Choose Your Batch Slot</h3>
+            </div>
+
+            <div class="batches-select-grid">
+              <label 
+                class="batch-slot-card" 
+                *ngFor="let batch of batches" 
+                [class.selected]="selectedBatchId === batch.id">
+                <input 
+                  type="radio" 
+                  name="selectedBatch" 
+                  [value]="batch.id" 
+                  [(ngModel)]="selectedBatchId" />
+                <div class="batch-slot-content">
+                  <div class="batch-slot-header">
+                    <span class="batch-day-pill">{{ batch.type }}</span>
+                    <span class="batch-date-tag">{{ batch.startDate }}</span>
+                  </div>
+                  <h4 class="batch-slot-name">{{ batch.name }}</h4>
+                  <span class="batch-time"><i class="fa-regular fa-clock"></i> {{ batch.time }}</span>
+                  <span class="batch-mentor"><i class="fa-solid fa-chalkboard-user"></i> {{ batch.mentor }}</span>
+                </div>
+              </label>
+            </div>
+
+            <!-- Learning Mode Selection -->
+            <div class="section-divider">
+              <h3><i class="fa-solid fa-laptop-code text-rose"></i> Preferred Attendance Mode</h3>
+            </div>
+
+            <div class="mode-toggles">
+              <label class="mode-card" [class.selected]="trainingMode === 'online'">
+                <input type="radio" name="trainingMode" value="online" [(ngModel)]="trainingMode" />
+                <i class="fa-solid fa-globe"></i>
+                <div>
+                  <strong>Live Interactive Online (Zoom &amp; Discord)</strong>
+                  <p>HD live classes with screen sharing, breakout rooms, and real-time mentor code review.</p>
+                </div>
+              </label>
+
+              <label class="mode-card" [class.selected]="trainingMode === 'classroom'">
+                <input type="radio" name="trainingMode" value="classroom" [(ngModel)]="trainingMode" />
+                <i class="fa-solid fa-building"></i>
+                <div>
+                  <strong>Hyderabad Hitech City Campus (In-Person)</strong>
+                  <p>Dual-monitor workstations, high-speed fiber internet, and direct face-to-face labs.</p>
+                </div>
+              </label>
+            </div>
+
+            <div class="panel-actions">
+              <button class="btn btn-primary btn-lg" (click)="goToStep(2)">
+                <span>Continue to Student Profile</span>
+                <i class="fa-solid fa-arrow-right"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- STEP 2: Student Details -->
+          <div class="step-panel glass-card" *ngIf="currentStep === 2">
+            <div class="panel-header">
+              <h2><i class="fa-regular fa-address-card text-rose"></i> Step 2: Student Information</h2>
+              <p>Your details will be used for LMS portal access and course completion certificate.</p>
+            </div>
+
+            <form class="student-form" (ngSubmit)="goToStep(3)">
+              <div class="form-group">
+                <label for="fullName">Full Name (as to appear on Certificate) *</label>
+                <div class="input-with-icon">
+                  <i class="fa-regular fa-user"></i>
+                  <input 
+                    type="text" 
+                    id="fullName" 
+                    [(ngModel)]="studentData.fullName" 
+                    name="fullName" 
+                    placeholder="e.g. Ramesh Kumar" 
+                    required />
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="email">Email Address (for LMS &amp; Zoom invites) *</label>
+                  <div class="input-with-icon">
+                    <i class="fa-regular fa-envelope"></i>
+                    <input 
+                      type="email" 
+                      id="email" 
+                      [(ngModel)]="studentData.email" 
+                      name="email" 
+                      placeholder="ramesh@example.com" 
+                      required />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="phone">Phone / WhatsApp Number *</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-phone"></i>
+                    <input 
+                      type="tel" 
+                      id="phone" 
+                      [(ngModel)]="studentData.phone" 
+                      name="phone" 
+                      placeholder="+91 98765 43210" 
+                      required />
+                  </div>
+                </div>
+              </div>
+
+              <div class="form-row">
+                <div class="form-group">
+                  <label for="city">City / Country *</label>
+                  <div class="input-with-icon">
+                    <i class="fa-solid fa-location-dot"></i>
+                    <input 
+                      type="text" 
+                      id="city" 
+                      [(ngModel)]="studentData.city" 
+                      name="city" 
+                      placeholder="e.g. Hyderabad, India" />
+                  </div>
+                </div>
+
+                <div class="form-group">
+                  <label for="experience">Current Experience Level</label>
+                  <select id="experience" [(ngModel)]="studentData.experience" name="experience">
+                    <option value="fresher">Fresher / College Graduate</option>
+                    <option value="1-3-years">1 to 3 Years (Junior / Mid Developer)</option>
+                    <option value="4-plus-years">4+ Years (Senior / Tech Lead)</option>
+                    <option value="tech-switch">Switching to Angular from React / Vue / Java</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="panel-actions dual">
+                <button type="button" class="btn btn-secondary" (click)="goToStep(1)">
+                  <i class="fa-solid fa-arrow-left"></i>
+                  <span>Back</span>
+                </button>
+                <button type="submit" class="btn btn-primary btn-lg">
+                  <span>Proceed to Payment Options</span>
+                  <i class="fa-solid fa-arrow-right"></i>
+                </button>
+              </div>
+            </form>
+          </div>
+
+          <!-- STEP 3: Review & Payment Options -->
+          <div class="step-panel glass-card" *ngIf="currentStep === 3">
+            <div class="panel-header">
+              <h2><i class="fa-solid fa-wallet text-rose"></i> Step 3: Payment &amp; Confirmation</h2>
+              <p>Choose your preferred payment method. All transactions are 100% encrypted and secure.</p>
+            </div>
+
+            <!-- Payment Options -->
+            <div class="payment-methods-grid">
+              <label class="pay-method-card" [class.selected]="paymentOption === 'full'">
+                <input type="radio" name="paymentOption" value="full" [(ngModel)]="paymentOption" />
+                <div class="pay-method-content">
+                  <div class="pay-header">
+                    <span class="pay-title">Full Tuition Payment</span>
+                    <span class="badge badge-green">Recommended</span>
+                  </div>
+                  <div class="pay-amount">₹{{ totalPayable | number }}</div>
+                  <p class="pay-desc">Pay via UPI (GPay/PhonePe), Credit/Debit Card, Netbanking. Instant confirmation &amp; LMS access.</p>
+                </div>
+              </label>
+
+              <label class="pay-method-card" [class.selected]="paymentOption === 'emi'">
+                <input type="radio" name="paymentOption" value="emi" [(ngModel)]="paymentOption" />
+                <div class="pay-method-content">
+                  <div class="pay-header">
+                    <span class="pay-title">No-Cost EMI</span>
+                    <span class="badge badge-angular">0% Interest</span>
+                  </div>
+                  <div class="pay-amount">From ₹{{ emiMonthlyAmount | number }} / mo</div>
+                  <p class="pay-desc">Spread payments over 3 or 6 months with 0% interest via major debit and credit cards.</p>
+                  
+                  <div class="tenure-selector" *ngIf="paymentOption === 'emi'">
+                    <label>Tenure:</label>
+                    <select [(ngModel)]="emiTenure">
+                      <option value="3">3 Months (₹{{ (totalPayable / 3) | number:'1.0-0' }} / mo)</option>
+                      <option value="6">6 Months (₹{{ (totalPayable / 6) | number:'1.0-0' }} / mo)</option>
+                    </select>
+                  </div>
+                </div>
+              </label>
+
+              <label class="pay-method-card" [class.selected]="paymentOption === 'token'">
+                <input type="radio" name="paymentOption" value="token" [(ngModel)]="paymentOption" />
+                <div class="pay-method-content">
+                  <div class="pay-header">
+                    <span class="pay-title">Reserve Seat with Token</span>
+                    <span class="badge badge-cyan">Pay Later</span>
+                  </div>
+                  <div class="pay-amount">₹{{ tokenAmount | number }}</div>
+                  <p class="pay-desc">Lock your seat in the upcoming batch now. Pay remaining balance before batch orientation starts.</p>
+                </div>
+              </label>
+            </div>
+
+            <!-- Guarantee Box -->
+            <div class="guarantee-box">
+              <i class="fa-solid fa-shield-halved"></i>
+              <div>
+                <strong>7-Day 100% Money-Back Guarantee</strong>
+                <p>Attend the first 2 live classes. If you're not completely blown away by the teaching depth, get a 100% refund, no questions asked.</p>
+              </div>
+            </div>
+
+            <div class="panel-actions dual">
+              <button type="button" class="btn btn-secondary" (click)="goToStep(2)">
+                <i class="fa-solid fa-arrow-left"></i>
+                <span>Back</span>
+              </button>
+              <button class="btn btn-primary btn-lg" (click)="completeEnrollment()" [disabled]="isProcessing">
+                <span *ngIf="!isProcessing">
+                  <i class="fa-solid fa-lock"></i>
+                  Complete Enrollment ({{ paymentOption === 'token' ? '₹999' : '₹' + (totalPayable | number) }})
+                </span>
+                <span *ngIf="isProcessing">
+                  <i class="fa-solid fa-circle-notch fa-spin"></i>
+                  Confirming Seat...
+                </span>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Order Summary Sidebar -->
+        <div class="enroll-summary-col">
+          <div class="summary-card glass-card">
+            <h3 class="summary-title"><i class="fa-solid fa-receipt"></i> Enrollment Summary</h3>
+
+            <div class="summary-course-info">
+              <span class="summary-badge">{{ selectedCourse.badge }}</span>
+              <h4 class="summary-course-name">{{ selectedCourse.name }}</h4>
+              <span class="summary-meta"><i class="fa-regular fa-clock"></i> {{ selectedCourse.duration }}</span>
+            </div>
+
+            <div class="summary-batch-details">
+              <div class="detail-row">
+                <span class="detail-label">Batch:</span>
+                <span class="detail-val">{{ selectedBatch.name }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Schedule:</span>
+                <span class="detail-val">{{ selectedBatch.time }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Start Date:</span>
+                <span class="detail-val text-emerald">{{ selectedBatch.startDate }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Mentor:</span>
+                <span class="detail-val">{{ selectedBatch.mentor }}</span>
+              </div>
+              <div class="detail-row">
+                <span class="detail-label">Mode:</span>
+                <span class="detail-val">{{ trainingMode === 'online' ? 'Live Online' : 'Classroom' }}</span>
+              </div>
+            </div>
+
+            <!-- Coupon Box -->
+            <div class="coupon-section">
+              <div class="coupon-input-wrap" *ngIf="!appliedCoupon">
+                <input 
+                  type="text" 
+                  [(ngModel)]="couponCode" 
+                  placeholder="Promo Code (e.g. ANGULAR19)" 
+                  (keyup.enter)="applyCoupon()" />
+                <button class="coupon-btn" (click)="applyCoupon()">Apply</button>
+              </div>
+              <p class="coupon-error" *ngIf="couponError">{{ couponError }}</p>
+
+              <div class="applied-coupon-pill" *ngIf="appliedCoupon">
+                <span><i class="fa-solid fa-tag"></i> Code <strong>{{ appliedCoupon }}</strong> applied!</span>
+                <button class="remove-coupon-btn" (click)="removeCoupon()">&times;</button>
+              </div>
+            </div>
+
+            <!-- Price Breakdown -->
+            <div class="price-breakdown">
+              <div class="price-row">
+                <span>Standard Tuition</span>
+                <span class="strike">₹{{ selectedCourse.originalPrice | number }}</span>
+              </div>
+              <div class="price-row">
+                <span>Early Bird Scholarship</span>
+                <span class="text-emerald">-₹{{ (selectedCourse.originalPrice - selectedCourse.discountedPrice) | number }}</span>
+              </div>
+              <div class="price-row" *ngIf="couponDiscount > 0">
+                <span>Promo Discount ({{ appliedCoupon }})</span>
+                <span class="text-emerald">-₹{{ couponDiscount | number }}</span>
+              </div>
+              <div class="price-row total-row">
+                <span>Total Amount</span>
+                <span class="total-amount">₹{{ totalPayable | number }}</span>
+              </div>
+            </div>
+
+            <div class="summary-perks">
+              <div class="perk"><i class="fa-solid fa-check text-emerald"></i> Lifetime Portal &amp; 4K Recordings</div>
+              <div class="perk"><i class="fa-solid fa-check text-emerald"></i> 100% Placement &amp; Referral Drives</div>
+              <div class="perk"><i class="fa-solid fa-check text-emerald"></i> Verified Industry Certificate</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SUCCESS RECEIPT SCREEN -->
+  <section class="success-section" *ngIf="isCompleted">
+    <div class="container">
+      <div class="receipt-card glass-card">
+        <div class="success-badge-icon">
+          <i class="fa-solid fa-circle-check"></i>
+        </div>
+
+        <span class="badge badge-green">Enrollment Confirmed</span>
+        <h2 class="receipt-title">Welcome to GoMinds Academy!</h2>
+        <p class="receipt-subtitle">
+          Congratulations <strong>{{ studentData.fullName }}</strong>! Your seat has been successfully reserved. A formal admission package with Zoom onboarding credentials has been dispatched to <strong>{{ studentData.email }}</strong>.
+        </p>
+
+        <!-- Receipt Box -->
+        <div class="receipt-box">
+          <div class="receipt-item">
+            <span class="receipt-label">Student Roll ID</span>
+            <span class="receipt-val highlight-val">{{ enrollmentId }}</span>
+          </div>
+          <div class="receipt-item">
+            <span class="receipt-label">Program Enrolled</span>
+            <span class="receipt-val">{{ selectedCourse.name }}</span>
+          </div>
+          <div class="receipt-item">
+            <span class="receipt-label">Assigned Batch</span>
+            <span class="receipt-val">{{ selectedBatch.name }} ({{ selectedBatch.time }})</span>
+          </div>
+          <div class="receipt-item">
+            <span class="receipt-label">Batch Commencement</span>
+            <span class="receipt-val text-emerald">{{ selectedBatch.startDate }}</span>
+          </div>
+          <div class="receipt-item">
+            <span class="receipt-label">Amount Authorized</span>
+            <span class="receipt-val">
+              {{ paymentOption === 'token' ? '₹999 (Token Seat Lock)' : '₹' + (totalPayable | number) }}
+            </span>
+          </div>
+          <div class="receipt-item">
+            <span class="receipt-label">Lead Mentor</span>
+            <span class="receipt-val">{{ selectedBatch.mentor }}</span>
+          </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="next-steps-grid">
+          <div class="step-card">
+            <div class="step-card-num">1</div>
+            <h4>Join Private Discord</h4>
+            <p>Access our VIP developer community, study groups, and download starter code repositories.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-card-num">2</div>
+            <h4>Setup Development Lab</h4>
+            <p>Follow our pre-cohort setup guide for Node.js, Angular CLI 19, and VS Code extensions.</p>
+          </div>
+          <div class="step-card">
+            <div class="step-card-num">3</div>
+            <h4>Attend Orientation</h4>
+            <p>Meet your lead mentors and fellow cohort engineers during the live kick-off session.</p>
+          </div>
+        </div>
+
+        <div class="receipt-actions">
+          <a routerLink="/home" class="btn btn-primary btn-lg">
+            <i class="fa-solid fa-house"></i>
+            <span>Return to Academy Home</span>
+          </a>
+          <a routerLink="/timetable" class="btn btn-secondary btn-lg">
+            <i class="fa-regular fa-calendar"></i>
+            <span>View Full Batch Timetable</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>

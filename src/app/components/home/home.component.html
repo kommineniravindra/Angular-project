@@ -1,0 +1,176 @@
+<!-- Hero Section -->
+<section class="hero-section">
+  <div class="container hero-container">
+    <div class="hero-content">
+      <div class="hero-badge">
+        <span class="badge-dot"></span>
+        <span class="badge-text">Angular 19 Ready • Signals &amp; Modern Reactivity</span>
+      </div>
+
+      <h1 class="hero-title">
+        Become an Elite <span class="gradient-text">Angular Architect</span> &amp; Full-Stack Leader
+      </h1>
+
+      <p class="hero-description">
+        GoMinds is India's premier Angular specialized training academy. Master modern Angular 19, enterprise TypeScript, NgRx, SSR, and microfrontends through immersive, project-driven bootcamps led by FAANG &amp; MNC tech leads.
+      </p>
+
+      <div class="hero-buttons">
+        <a routerLink="/courses" class="btn btn-primary btn-lg">
+          <i class="fa-solid fa-graduation-cap"></i>
+          <span>Explore All Courses</span>
+        </a>
+        <a routerLink="/timetable" class="btn btn-secondary btn-lg">
+          <i class="fa-regular fa-calendar-check"></i>
+          <span>Upcoming Batches</span>
+        </a>
+      </div>
+
+      <div class="hero-trust">
+        <div class="trust-avatars">
+          <span class="avatar av-1">RS</span>
+          <span class="avatar av-2">AD</span>
+          <span class="avatar av-3">VM</span>
+          <span class="avatar av-4">+</span>
+        </div>
+        <div class="trust-text">
+          <div class="trust-stars">
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+            <i class="fa-solid fa-star"></i>
+          </div>
+          <span><strong>4.95 / 5</strong> rated by 5,200+ trained developers</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Hero Interactive Tech Card -->
+    <div class="hero-visual">
+      <div class="code-card glass-card">
+        <div class="code-card-header">
+          <div class="window-dots">
+            <span class="dot red"></span>
+            <span class="dot yellow"></span>
+            <span class="dot green"></span>
+          </div>
+          <span class="file-name"><i class="fa-brands fa-angular"></i> modern-angular.ts</span>
+          <span class="badge-v19">v19.2</span>
+        </div>
+        <pre class="code-content"><code><span class="kw">import</span> &#123; <span class="fn">Component</span>, <span class="fn">signal</span>, <span class="fn">computed</span> &#125; <span class="kw">from</span> <span class="str">'&#64;angular/core'</span>;
+
+<span class="ann">&#64;Component</span>(&#123;
+  <span class="prop">selector</span>: <span class="str">'app-elite-dev'</span>,
+  <span class="prop">standalone</span>: <span class="bool">true</span>,
+  <span class="prop">template</span>: <span class="str">`
+    &lt;div class="badge"&gt;Skills Level: {{ '{{' }} masteryLevel() {{ '}}' }}&lt;/div&gt;
+    &#64;defer (on viewport) &#123;
+      &lt;app-enterprise-project /&gt;
+    &#125;
+  `</span>
+&#125;)
+<span class="kw">export class</span> <span class="fn">ArchitectComponent</span> &#123;
+  <span class="kw">readonly</span> xp = <span class="fn">signal</span>(<span class="num">100</span>);
+  <span class="kw">readonly</span> masteryLevel = <span class="fn">computed</span>(() =&gt; 
+    <span class="kw">this</span>.xp() &gt;= <span class="num">100</span> ? <span class="str">'GoMinds Certified'</span> : <span class="str">'Novice'</span>
+  );
+&#125;</code></pre>
+        <div class="code-card-footer">
+          <div class="status-indicator">
+            <span class="pulse-dot"></span>
+            <span>Live Angular 19 Engine • 0 Errors</span>
+          </div>
+          <span class="hire-badge"><i class="fa-solid fa-check"></i> 100% Placement Support</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Stats Grid -->
+<section class="stats-section">
+  <div class="container">
+    <div class="stats-grid">
+      <div class="stat-card glass-card" *ngFor="let s of stats">
+        <div class="stat-icon">
+          <i [class]="s.icon"></i>
+        </div>
+        <div class="stat-number">{{ s.value }}</div>
+        <div class="stat-label">{{ s.label }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Features / Pillars Section -->
+<section class="features-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="subtitle">Why Choose GoMinds</span>
+      <h2>Engineered for High-Paying Tech Careers</h2>
+      <p>We don't teach surface-level syntax. We build full-fledged enterprise architects ready to lead top engineering teams.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card glass-card" *ngFor="let f of features">
+        <div class="feature-tag">{{ f.tag }}</div>
+        <div class="feature-icon">
+          <i [class]="f.icon"></i>
+        </div>
+        <h3 class="feature-title">{{ f.title }}</h3>
+        <p class="feature-desc">{{ f.description }}</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Testimonials Section -->
+<section class="testimonials-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="subtitle">Student Stories</span>
+      <h2>Real Developers. Real Transformations.</h2>
+      <p>Discover how our alumni secured high-impact roles at premier technology corporations.</p>
+    </div>
+
+    <div class="testimonials-grid">
+      <div class="test-card glass-card" *ngFor="let t of testimonials">
+        <div class="stars-row">
+          <i class="fa-solid fa-star" *ngFor="let i of [1,2,3,4,5]"></i>
+        </div>
+        <p class="test-quote">"{{ t.quote }}"</p>
+        <div class="test-author">
+          <div class="author-avatar">{{ t.name.charAt(0) }}</div>
+          <div>
+            <h4 class="author-name">{{ t.name }}</h4>
+            <span class="author-role">{{ t.role }} • <strong>{{ t.company }}</strong></span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- CTA Banner -->
+<section class="cta-section">
+  <div class="container">
+    <div class="cta-banner glass-card">
+      <div class="cta-glow"></div>
+      <div class="cta-content">
+        <h2>Start Your Angular Mastery Journey Today</h2>
+        <p>New batches starting this Monday! Limited to 15 students per batch for personalized mentoring and daily code reviews.</p>
+        <div class="cta-actions">
+          <a routerLink="/enroll" class="btn btn-primary btn-lg">
+            <span>Enroll Now • Instant Seat Lock</span>
+            <i class="fa-solid fa-arrow-right"></i>
+          </a>
+          <a routerLink="/timetable" class="btn btn-secondary btn-lg">
+            <i class="fa-solid fa-clock"></i>
+            <span>Check Schedule</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

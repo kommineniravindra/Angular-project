@@ -1,0 +1,108 @@
+<div class="about-page">
+  <!-- Header -->
+  <section class="page-hero">
+    <div class="container text-center">
+      <span class="badge badge-angular">Our Story &amp; Philosophy</span>
+      <h1 class="page-title">Architecting the <span class="gradient-text">Future of Frontend</span></h1>
+      <p class="page-subtitle">
+        GoMinds was built by engineers, for engineers. We eliminate superficial tutorials and equip developers with real-world enterprise architectures, production discipline, and deep craftsmanship.
+      </p>
+    </div>
+  </section>
+
+  <!-- Mission & Vision -->
+  <section class="mission-section">
+    <div class="container">
+      <div class="mission-grid">
+        <div class="mission-card glass-card">
+          <div class="mission-icon">
+            <i class="fa-solid fa-bullseye"></i>
+          </div>
+          <h3>Our Mission</h3>
+          <p>
+            To transform aspiring and experienced developers into elite frontend architects who write maintainable, scalable, and resilient enterprise applications that thrive in production environments.
+          </p>
+        </div>
+
+        <div class="mission-card glass-card">
+          <div class="mission-icon">
+            <i class="fa-solid fa-compass"></i>
+          </div>
+          <h3>Our Training Philosophy</h3>
+          <p>
+            Zero spoon-feeding. We prioritize deep mental models over memorization. You'll master how Angular's compiler operates under the hood, how Signals propagate fine-grained reactivity, and how to write clean, self-documenting code.
+          </p>
+        </div>
+
+        <div class="mission-card glass-card">
+          <div class="mission-icon">
+            <i class="fa-solid fa-award"></i>
+          </div>
+          <h3>Placement &amp; Career Growth</h3>
+          <p>
+            We prepare you for the toughest system design and algorithmic rounds. With direct referrals to 140+ tech companies, our graduates consistently command 12 LPA to 35+ LPA compensation packages.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Instructors / Mentors Section -->
+  <section class="mentors-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="subtitle">Meet The Mentors</span>
+        <h2>Taught by Industry Veterans</h2>
+        <p>Learn directly from architects who have built and scaled systems for Google, Microsoft, and top tier product firms.</p>
+      </div>
+
+      <div class="mentors-grid">
+        <div class="mentor-card glass-card" *ngFor="let m of mentors">
+          <div class="mentor-header">
+            <div class="mentor-avatar-badge">{{ m.avatarInitial }}</div>
+            <div>
+              <h3 class="mentor-name">{{ m.name }}</h3>
+              <span class="mentor-company">{{ m.exCompany }}</span>
+              <span class="mentor-exp"><i class="fa-solid fa-briefcase"></i> {{ m.experience }}</span>
+            </div>
+          </div>
+
+          <p class="mentor-bio">{{ m.bio }}</p>
+
+          <div class="specialization-box">
+            <span class="spec-label">Domain Specialization:</span>
+            <div class="spec-tags">
+              <span class="spec-tag" *ngFor="let s of m.specialization">{{ s }}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Institute Milestones / Timeline -->
+  <section class="milestones-section">
+    <div class="container">
+      <div class="section-header">
+        <span class="subtitle">Our Journey</span>
+        <h2>A Decade of Excellence in Angular Training</h2>
+      </div>
+
+      <div class="timeline-container">
+        <div class="timeline-item" *ngFor="let item of milestones">
+          <div class="timeline-year">{{ item.year }}</div>
+          <div class="timeline-content glass-card">
+            <p>{{ item.event }}</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="about-cta text-center" style="margin-top: 50px; text-align: center;">
+        <a routerLink="/contact-us" class="btn btn-primary btn-lg">
+          <span>Meet Mentors &amp; Attend Free Demo</span>
+          <i class="fa-solid fa-arrow-right"></i>
+        </a>
+      </div>
+    </div>
+  </section>
+</div>
